@@ -1,0 +1,129 @@
+.navBar {
+    width: 80%;
+    margin: 3rem auto;
+    position: relative;
+}
+
+.navBar_box {
+    display: grid;
+    grid-template-columns: 1fr 1.7fr;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navBar_box_right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.navBar_box_right_menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-bottom: 2px solid transparent;
+    transition: all .3s ease-in-out;
+}
+
+.navBar_box_right_menu_items .mobile_menu_items.active {
+    color: #f18303;
+    border-bottom: 2px solid #f18303;
+    padding-bottom: .4rem;
+}
+
+.navBar_box_right_connect {
+    display: flex;
+    justify-self: flex-end;
+}
+
+.navBar_box_right_connect button {
+    background-color: rgb(0, 0, 0, 0.25);
+    padding: 1rem;
+    border: none;
+    border-radius: .5rem;
+    font-size: 1.1rem;
+    color: #f18303;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.navBar_box_right_close {
+    display: none;
+}
+
+.navBar_box_right_open {
+    display: none;
+}
+
+.mobile_menu {
+    display: none;
+}
+
+.modelBox {
+    position: absolute;
+    inset: 0 0 0 0;
+    background-color: var(--primary-background);
+    z-index: 7777777777;
+}
+
+@media only screen and (max-width:35em) {
+    .navBar {
+        width: 90%;
+        margin: 2rem auto;
+    }
+
+    .navBar_box {
+        grid-template-columns: .6fr 2fr;
+        justify-content: space-between;
+
+    }
+
+    .navBar_box_right_connect button {
+        font-size: 1rem;
+        padding: .8rem;
+    }
+
+    .navBar_box_right_open {
+        display: block;
+    }
+
+    .navBar_box_right_menu {
+        position: fixed;
+        z-index: 111111;
+        background-color: var(--primary-background);
+        width: 100%;
+        flex-direction: column;
+        height: 100vh;
+        inset: 0 0 0 0;
+        padding: 4rem;
+        display: none;
+    }
+
+    .mobile_menu {
+        display: block;
+        position: fixed;
+        z-index: 111111111;
+        background-color: var(--primary-background);
+        inset: 0 0 0 0;
+        text-align: center;
+        padding-top: 4rem;
+    }
+
+    .mobile_menu_btn {
+        padding-top: 2rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modelBox {
+        position: absolute;
+        inset: 0 0 -70% 0;
+
+    }
+}
