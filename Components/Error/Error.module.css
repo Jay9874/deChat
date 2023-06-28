@@ -9,6 +9,8 @@
     padding: 2rem;
     box-shadow: 5px 5px 10px #cd6f03, 5px 5px 10px #ff9703;
     overflow-y: scroll;
+    width: 100%;
+    overflow-x: scroll;
     text-align: center;
 }
 

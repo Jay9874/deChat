@@ -1,7 +1,11 @@
 .model{
     width: 85%;
     margin: 1rem auto;
-
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 11111111111;
+    background-color: var(--primary-background);
 }
 .model_box{
     display: grid;

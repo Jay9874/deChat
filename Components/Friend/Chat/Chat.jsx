@@ -44,94 +44,71 @@ const Chat = ({
         <h4>Select a user to chat</h4>
       )}
       <div className={Style.chat_box_box}>
-        <div className={Style.chat_box}>
-          <div className={Style.chat_box_left}>
-            {friendMsg ? (
-              friendMsg.map((message, index) => {
-                return (
-                  <div key={index}>
-                    {message.sender === chatData.pubkey ? (
-                      <div className={Style.chat_box_left_title}>
-                        <Image
-                          src={images.accountName}
-                          alt='user'
-                          height={50}
-                          width={50}
-                          className={Style.chat_box_left_title_img}
-                        />
-                        <span>
-                          {chatData.name}
-                          <small>
-                            Time: {convertTimestamp(message.timestamp)}
-                          </small>
-                        </span>
-                      </div>
-                    ) : (
-                      <div className={Style.chat_box_right_title}>
-                        <Image
-                          src={images.accountName}
-                          alt='user'
-                          height={50}
-                          width={50}
-                          className={Style.chat_box_right_title_img}
-                        />
-                        <span>
-                          {username}
-                          <small>
-                            Time: {convertTimestamp(message.timestamp)}
-                          </small>
-                        </span>
-                      </div>
-                    )}
-                    <p key={index}>{message.msg}</p>
-                  </div>
-                )
-              })
+        <div className={Style.chat_msg_container}>
+          {friendMsg ? (
+            friendMsg.map((message, index) => {
+              return (
+                <div key={index} className={Style.chat_box}>
+                  {message.sender === chatData.pubkey ? (
+                    <div className={Style.chat_msg_recieved}>
+                      <p key={index}>{message.msg}</p>
+                      <small>Time: {convertTimestamp(message.timestamp)}</small>
+                    </div>
+                  ) : (
+                    <div className={Style.chat_msg_sent}>
+                      <p key={index}>{message.msg}</p>
+                      <small>Time: {convertTimestamp(message.timestamp)}</small>
+                    </div>
+                  )}
+                </div>
+              )
+            })
+          ) : (
+            <h4>No messages</h4>
+          )}
+        </div>
+      </div>
+      {/* chat box bottom menu */}
+      {currentUserAddress && currentUsername && (
+        <div className={Style.chat_box_send}>
+          <div className={Style.chat_box_send_img}>
+            <Image
+              src={images.smile}
+              alt='emoji'
+              height={50}
+              width={50}
+              className={Style.chat_box_send_smile}
+            />
+            <input
+              type='text'
+              placeholder='Type a message'
+              value={message}
+              onChange={e => setMessage(e.target.value)}
+            />
+            <Image
+              src={images.file}
+              alt='file'
+              height={50}
+              width={50}
+              className={Style.chat_box_send_img_file}
+            />
+            {loading ? (
+              <Loader />
             ) : (
-              <h4>No messages</h4>
+              <Image
+                src={images.send}
+                alt='send'
+                height={50}
+                width={50}
+                className={Style.chat_box_send_img_send}
+                onClick={() => {
+                  sendMessage(chatData.pubkey, message), setMessage('')
+                }}
+              />
             )}
           </div>
         </div>
-        {/* chat box bottom menu */}
-        {currentUserAddress && currentUsername && (
-          <div className={Style.chat_box_send}>
-            <div className={Style.chat_box_send_img}>
-              <Image
-                src={images.smile}
-                alt='emoji'
-                height={50}
-                width={50}
-                className={Style.chat_box_send_smile}
-              />
-              <input
-                type='text'
-                placeholder='Type a message'
-                value={message}
-                onChange={e => setMessage(e.target.value)}
-              />
-              <Image
-                src={images.file}
-                alt='file'
-                height={50}
-                width={50}
-                className={Style.chat_box_send_img_file}
-              />
-              {loading ? (
-                <Loader />
-              ) : (
-                <Image
-                  src={images.send}
-                  alt='send'
-                  height={50}
-                  width={50}
-                  className={Style.chat_box_send_img_send}
-                  onClick={() => {sendMessage(chatData.pubkey, message), setMessage('')}}
-                />
-              )}
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   )
 }

@@ -10,7 +10,7 @@ export default function Error ({ error }) {
     <div className={Style.error}>
       <div className={Style.error_box}>
         <h1>
-          Please fix this error:
+          Seems like something broke :-/
           <br />
           <span>{error}</span>
         </h1>

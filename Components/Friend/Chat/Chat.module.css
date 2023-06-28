@@ -1,31 +1,68 @@
-.chat{
+.chat {
     padding: 2rem;
     background-color: var(--secondary-background);
     border-radius: .5rem;
     overflow-y: scroll;
 
 }
-.chat_box{
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 50vh;
-    width: 80%;
-    margin: 0 auto;
-    overflow-y: scroll;
+
+.chat_box {
+    display: flex;
+    flex-direction: column;
 
 }
-.chat_box img{
+
+.chat_box img {
     cursor: pointer;
 }
-.chat_box_right p, .chat_box_left p{
+.chat_msg_container{
+    height: 50vh;
+    overflow-y: scroll;
+}
+.chat_msg_sent,
+.chat_msg_recieved {
     background-color: #f182035b;
     padding: 1rem;
-    border: .5rem .5rem 0 .5rem;
+    margin: 1rem 0;
     position: relative;
-
+    display: inline-block;
+    border-radius: 1rem;
 }
 
-.chat_box_left_title{
+/* .chat_msg_recieved::before {
+    content: '';
+    position: absolute;
+    height: 40px;
+    width: 20px;
+    z-index: 1;
+    background-color: transparent;
+    left: 0;
+    bottom: 10px;
+    border-radius: 0 0 20px 0;
+    box-shadow: 0 .5rem #f182035b;
+
+} */
+/* 
+.chat_msg_sent::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    z-index: 1;
+    background-color: red;
+    right: 0;
+    bottom: 0;
+} */
+
+.chat_msg_recieved {
+    align-self: flex-start;
+}
+
+.chat_msg_sent {
+    align-self: flex-end;
+}
+
+.chat_box_left_title {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -33,14 +70,14 @@
 
 }
 
-.chat_box_send_img{
+.chat_box_send_img {
     display: flex;
     align-items: center;
     gap: 1rem;
 
 }
 
-.chat_box_send_img input{
+.chat_box_send_img input {
     width: 100%;
     background-color: #f182035b;
     outline: none;
@@ -49,26 +86,32 @@
     color: var(--primary-color);
     border-radius: .5rem;
 }
-.chat_user_info{
+
+.chat_user_info {
     display: flex;
     align-items: center;
     gap: 2rem;
     line-height: 1rem;
 
 }
-.chat_user_info_box h3, .chat_user_info_box p{
+
+.chat_user_info_box h3,
+.chat_user_info_box p {
     line-height: 0;
 }
 
-@media only screen and (max-width: 35em){
-    .chat{
+@media only screen and (max-width: 35em) {
+    .chat {
         padding: 1rem;
 
     }
-    .chat p, .chat small{
+
+    .chat p,
+    .chat small {
         font-size: .8rem;
     }
-    .show{
+
+    .show {
         display: none;
     }
 

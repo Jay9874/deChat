@@ -44,9 +44,11 @@
 
 }
 .filter_model{
-    position: fixed;
-    background-color: var(--secondary-background);
-    z-index: 111111111111111111;
+    position: absolute;
+    inset: 0 0 -70% 0;
+    /* background-color: red; */
+    background-color: var(--primary-background);
+    z-index: 111111111111;
 }
 
 @media only screen and (max-width: 35em){

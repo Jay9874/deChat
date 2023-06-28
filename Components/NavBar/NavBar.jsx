@@ -43,12 +43,12 @@ export default function NavBar () {
                 key={index}
                 onClick={() => setActiveLink(index)}
               >
-                <Link
+                <a
                   href={item.link}
                   className={Style.navBar_box_right_menu_link}
                 >
                   {item.name}
-                </Link>
+                </a>
               </div>
             ))}
           </div>
