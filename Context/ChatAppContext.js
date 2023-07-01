@@ -34,14 +34,20 @@ export const ChatAppProvider = ({ children }) => {
       const account = await connectWallet()
       setAccount(account)
       //Get username
-      const username = await contract.getUsername(account)
-      setUsername(username)
-      // // Get friend list
-      const friendList = await contract.getMyFriendList()
-      setFriendList(friendList)
-      // Get all user list
-      const userList = await contract.getAllAppUser()
-      setUserList(userList)
+      const userExist = await contract.checkUserExist(account)
+      if (userExist) {
+        const username = await contract.getUsername(account)
+        setUsername(username)
+        // // Get friend list
+        const friendList = await contract.getMyFriendList()
+        setFriendList(friendList)
+        // Get all user list
+      }
+      const newUserList = await contract.getAllAppUser()
+      newUserList.map(user => {
+        const newAddress = user.accountAddress.toLowerCase()
+        setUserList(prev => [...prev, { name: user.name, address: newAddress }])
+      })
     } catch (err) {
       console.log(err)
       setError(`Please install Metamask and connect your wallet, ${err}`)
@@ -52,7 +58,7 @@ export const ChatAppProvider = ({ children }) => {
   }, [])
 
   //Read message
-  const readMessage = async (friendAddress) => {
+  const readMessage = async friendAddress => {
     console.log(friendAddress)
     try {
       //Get contract
@@ -68,8 +74,8 @@ export const ChatAppProvider = ({ children }) => {
   const createAccount = async (username, accountAddress) => {
     console.log(username, accountAddress)
     try {
-      // if (!username || !accountAddress)
-      //   return setError('Please fill in all fields')
+      if (!username || !accountAddress)
+        return setError('Please fill in all fields')
       //Get contract
       const contract = await connectingWithContract()
       //Create account
@@ -92,6 +98,7 @@ export const ChatAppProvider = ({ children }) => {
 
   //Add friend
   const addFriend = async (username, friendAddress) => {
+    console.log(username, friendAddress)
     try {
       if (!username || !friendAddress)
         return setError('Please fill in all fields')
@@ -99,6 +106,7 @@ export const ChatAppProvider = ({ children }) => {
       const contract = await connectingWithContract()
       //Add friend
       const addFriend = await contract.addFriend(friendAddress, username)
+      console.log(addFriend)
       setLoading(true)
       addFriend.wait().then(() => {
         setLoading(false)
@@ -106,6 +114,21 @@ export const ChatAppProvider = ({ children }) => {
       })
     } catch (err) {
       setError(`Please check your friend address and be sure its not you`)
+    }
+  }
+  // Chech already friend
+  const alreadyFriend = async (userAddress, friendAddress) => {
+    try {
+      //Get contract
+      const contract = await connectingWithContract()
+      //Check already friend
+      const checkAlreadyFriend = await contract.checkAldreadyFriend(
+        userAddress,
+        friendAddress
+      )
+      return checkAlreadyFriend
+    } catch (err) {
+      setError(`Please check your friend address ${err}`)
     }
   }
 
@@ -117,7 +140,6 @@ export const ChatAppProvider = ({ children }) => {
       //Get contract
       const contract = await connectingWithContract()
       //Send message
-      console.log(contract)
       const sendMessage = await contract.sendMessage(friendAddress, message)
       setLoading(true)
       sendMessage.wait().then(() => {
@@ -144,6 +166,7 @@ export const ChatAppProvider = ({ children }) => {
         readMessage,
         createAccount,
         addFriend,
+        alreadyFriend,
         sendMessage,
         userInfo,
         connectWallet,

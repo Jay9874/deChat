@@ -70,6 +70,7 @@
 
 .modelBox {
     position: fixed;
+    overflow-y: scroll;
     inset: 0 0 0 0;
     background-color: var(--primary-background);
     z-index: 11;

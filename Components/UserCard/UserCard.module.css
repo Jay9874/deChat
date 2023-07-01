@@ -16,19 +16,18 @@
     color: var(--primary-background);
     background-color: var(--secondary-color);
     width: 50%;
+    margin: 0 auto;
     padding: 1rem;
     border: none;
     outline: none;
     border-radius: .5rem;
     font-size: 1rem;
-    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
 }
-.number{
-    position: absolute;
-    right: 1rem;
-    padding: 1rem 1.3rem;
-    border-radius: 50%;
-    background-color: var(--secondary-color);
-    top: 1rem;
-
-}
+.icon_add_friend {
+    --ionicon-stroke-width: 32px;
+  }

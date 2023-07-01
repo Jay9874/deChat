@@ -38,6 +38,27 @@ contract ChatApp {
         return bytes(users[curr_user].name).length > 0;
     }
 
+    //check If already friends
+    function checkAldreadyFriend(
+        address user_key,
+        address friend_key
+    ) public view returns (bool) {
+        if (
+            users[user_key].friendList.length >
+            users[friend_key].friendList.length
+        ) {
+            address temp = user_key;
+            user_key = friend_key;
+            friend_key = temp;
+        }
+        for (uint256 i = 0; i < users[user_key].friendList.length; i++) {
+            if (users[user_key].friendList[i].pubkey == friend_key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Create user
     function createAccount(string calldata name) external {
         require(!checkUserExist(msg.sender), "User already exists");
@@ -68,25 +89,6 @@ contract ChatApp {
     }
 
     //Check if already friends
-    function checkAldreadyFriend(
-        address user_key,
-        address friend_key
-    ) internal view returns (bool) {
-        if (
-            users[user_key].friendList.length >
-            users[friend_key].friendList.length
-        ) {
-            address temp = user_key;
-            user_key = friend_key;
-            friend_key = temp;
-        }
-        for (uint256 i = 0; i < users[user_key].friendList.length; i++) {
-            if (users[user_key].friendList[i].pubkey == friend_key) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     // Add friend to friend list
     function _addFriend(
@@ -118,7 +120,6 @@ contract ChatApp {
 
     // Send message
     function sendMessage(address friend_key, string calldata _msg) external {
-        
         require(checkUserExist(msg.sender), "Create an account first");
         require(checkUserExist(friend_key), "Friend does not exist");
         require(

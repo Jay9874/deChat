@@ -2,6 +2,7 @@
     width: 85%;
     margin: 1rem auto;
     position: absolute;
+    overflow-y: scroll;
     top: 0;
     left: 0;
     z-index: 11111111111;

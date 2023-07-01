@@ -38,3 +38,10 @@ img {
   max-width: 100%;
   display: block;
 }
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+button:not(:disabled){
+  cursor: pointer;
+}

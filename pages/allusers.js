@@ -6,23 +6,28 @@ import { ChatAppContext } from '../Context/ChatAppContext'
 import { UserCard } from '../Components'
 
 const alluser = () => {
-  const { userList, addFriend } = useContext(ChatAppContext)
+  const { userList, addFriend, account, alreadyFriend } = useContext(ChatAppContext)
   return (
     <div>
       <div className={Style.alluser_info}>
-        <h1>All Users</h1>
-        <p>Here you can see all the users of this app</p>
+        <h1>Registered Users</h1>
+        <p>Make them your friends.</p>
       </div>
       <div className={Style.alluser}>
-        {userList.map((user, index) => (
-          <UserCard
-            key={index}
-            user={user}
-            i={index}
-            address={user.address}
-            addFriend={addFriend}
-          />
-        ))}
+        {userList.map((user, index) => {
+          return (
+            user.address != account && (
+              <UserCard
+                key={index}
+                user={user}
+                i={index}
+                address={account}
+                addFriend={addFriend}
+                alreadyFriend={alreadyFriend}
+              />
+            )
+          )
+        })}
       </div>
     </div>
   )
