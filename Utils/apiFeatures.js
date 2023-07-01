@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
-import web3Modal from 'web3Modal'
+import web3Modal from 'web3modal'
 import { ABI, ADDRESS } from '../Context/constants'
-import moment from 'moment'
 
 export const checkIfWalletIsConnected = async () => {
   try {
