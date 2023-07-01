@@ -11,6 +11,7 @@ const Card = ({ friend, readMessage, index, userInfo}) => {
         pathname: '/',
         query: {name: `${friend.name}`, pubkey: `${friend.pubkey}`},
       }}
+      className={Style.chat_card_link}
     >
       <div
         className={Style.card}
@@ -32,7 +33,6 @@ const Card = ({ friend, readMessage, index, userInfo}) => {
               <p>{friend.pubkey.slice(0, 25)}...</p>
             </div>
             <div className={Style.card_box_right_end}>
-              <p>{index + 1}</p>
             </div>
           </div>
         </div>

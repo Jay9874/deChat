@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "dotenv": "^16.3.1",
     "ethers": "^5.4",
     "moment": "^2.29.4",
     "next": "13.2.4",

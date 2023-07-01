@@ -19,3 +19,7 @@
 .card_box_left{
     border-radius: 50%;
 }
+.chat_card_link{
+    text-decoration: none;
+    color: #fff;
+}
