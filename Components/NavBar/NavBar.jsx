@@ -13,7 +13,7 @@ export default function NavBar () {
     { name: 'Users', link: '/allusers' },
     { name: 'Chat', link: '/' },
     { name: 'Contacts', link: '/contacts' },
-    { name: 'Profile', link: '/profile' },
+    { name: 'Profile', link: '/profile' }
   ])
   const [activeLink, setActiveLink] = useState(2)
   const [showModel, setShowModel] = useState(false)
@@ -73,7 +73,7 @@ export default function NavBar () {
                 className={Style.mobile_menu_btn}
                 onClick={() => setOpen(false)}
               >
-                <Image src={images.close} alt='close' height={50} width={50} />
+                <ion-icon size='large' name='close-circle-outline'></ion-icon>
               </div>
             </div>
           )}

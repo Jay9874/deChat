@@ -50,7 +50,6 @@ export const connectingWithContract = async () => {
 export const convertTimestamp = timestamp => {
 
   const newTime = new Date(timestamp.toNumber())
-  console.log(newTime)
   const realTime =
     newTime.getHours() +
     '/' +

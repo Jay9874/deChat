@@ -59,7 +59,6 @@ export const ChatAppProvider = ({ children }) => {
 
   //Read message
   const readMessage = async friendAddress => {
-    console.log(friendAddress)
     try {
       //Get contract
       const contract = await connectingWithContract()
@@ -72,7 +71,6 @@ export const ChatAppProvider = ({ children }) => {
   }
   //Create account
   const createAccount = async (username, accountAddress) => {
-    console.log(username, accountAddress)
     try {
       if (!username || !accountAddress)
         return setError('Please fill in all fields')
@@ -98,7 +96,6 @@ export const ChatAppProvider = ({ children }) => {
 
   //Add friend
   const addFriend = async (username, friendAddress) => {
-    console.log(username, friendAddress)
     try {
       if (!username || !friendAddress)
         return setError('Please fill in all fields')

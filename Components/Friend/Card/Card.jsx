@@ -4,12 +4,12 @@ import Style from './Card.module.css'
 import images from '../../../assets'
 import Link from 'next/link'
 
-const Card = ({ friend, readMessage, index, userInfo}) => {
+const Card = ({ friend, readMessage, index, userInfo }) => {
   return (
     <Link
       href={{
         pathname: '/',
-        query: {name: `${friend.name}`, pubkey: `${friend.pubkey}`},
+        query: { name: `${friend.name}`, pubkey: `${friend.pubkey}` }
       }}
       className={Style.chat_card_link}
     >
@@ -28,12 +28,10 @@ const Card = ({ friend, readMessage, index, userInfo}) => {
             />
           </div>
           <div className={Style.card_box_right}>
-            <div className={Style.card_box_right_middle}>
-              <h3>{friend.name}</h3>
-              <p>{friend.pubkey.slice(0, 25)}...</p>
-            </div>
-            <div className={Style.card_box_right_end}>
-            </div>
+            <h3>{friend.name}</h3>
+            <p>{friend.pubkey.slice(0, 25)}...</p>
+
+            <div className={Style.card_box_right_end}></div>
           </div>
         </div>
       </div>

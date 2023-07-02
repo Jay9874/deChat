@@ -53,11 +53,17 @@ const Chat = ({
                     <div className={Style.chat_msg_recieved}>
                       <p key={index}>{message.msg}</p>
                       <small>Time: {convertTimestamp(message.timestamp)}</small>
+                      <div className={Style.chat_msg_recieved_ind}>
+                        <div></div>
+                      </div>
                     </div>
                   ) : (
                     <div className={Style.chat_msg_sent}>
                       <p key={index}>{message.msg}</p>
                       <small>Time: {convertTimestamp(message.timestamp)}</small>
+                      <div className={Style.chat_msg_sent_ind}>
+                        <div></div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -71,40 +77,35 @@ const Chat = ({
       {/* chat box bottom menu */}
       {currentUserAddress && currentUsername && (
         <div className={Style.chat_box_send}>
-          <div className={Style.chat_box_send_img}>
-            <Image
-              src={images.smile}
-              alt='emoji'
-              height={50}
-              width={50}
-              className={Style.chat_box_send_smile}
-            />
+          <div className={Style.chat_box_actions}>
+            <ion-icon
+              className={Style.chat_box_smile_icon}
+              name='happy-outline'
+            ></ion-icon>
+
             <input
               type='text'
               placeholder='Type a message'
               value={message}
               onChange={e => setMessage(e.target.value)}
             />
-            <Image
-              src={images.file}
-              alt='file'
-              height={50}
-              width={50}
-              className={Style.chat_box_send_img_file}
-            />
+            <ion-icon
+ 
+              className={Style.chat_box_file_icon}
+              name='attach-outline'
+            ></ion-icon>
+
             {loading ? (
               <Loader />
             ) : (
-              <Image
-                src={images.send}
-                alt='send'
-                height={50}
-                width={50}
-                className={Style.chat_box_send_img_send}
+              <ion-icon
                 onClick={() => {
                   sendMessage(chatData.pubkey, message), setMessage('')
                 }}
-              />
+         
+                className={Style.chat_box_send_icon}
+                name='send-outline'
+              ></ion-icon>
             )}
           </div>
         </div>

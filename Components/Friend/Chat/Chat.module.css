@@ -1,15 +1,18 @@
 .chat {
-    padding: 2rem;
+    padding: 1rem ;
     background-color: var(--secondary-background);
-    border-radius: .5rem;
+    border-radius: 8px;
     overflow-y: scroll;
-
 }
 
 .chat_box {
     display: flex;
     flex-direction: column;
+    padding: 0 20px;
+}
 
+.chat_box_send{
+    padding: 1rem 0 0;
 }
 
 .chat_box img {
@@ -21,38 +24,40 @@
 }
 .chat_msg_sent,
 .chat_msg_recieved {
-    background-color: #f182035b;
-    padding: 1rem;
-    margin: 1rem 0;
+    background-color: #3d4d42;
+    padding: .5rem 1rem;
+    margin: .5rem 0;
     position: relative;
     display: inline-block;
-    border-radius: 1rem;
+}
+.chat_msg_sent{
+    border-radius: 16px 16px 0 16px;
+}
+.chat_msg_recieved{
+    border-radius: 16px 16px 16px 0;
 }
 
-/* .chat_msg_recieved::before {
-    content: '';
+.chat_msg_recieved_ind, .chat_msg_sent_ind{
     position: absolute;
-    height: 40px;
-    width: 20px;
-    z-index: 1;
-    background-color: transparent;
-    left: 0;
-    bottom: 10px;
-    border-radius: 0 0 20px 0;
-    box-shadow: 0 .5rem #f182035b;
-
-} */
-/* 
-.chat_msg_sent::after {
-    content: '';
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    z-index: 1;
-    background-color: red;
-    right: 0;
     bottom: 0;
-} */
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    z-index: 1;
+}
+
+.chat_msg_recieved_ind{
+    left: -16px;
+    border-radius: 0 0 8px 0;
+    box-shadow: 8px 0 #3d4d42;
+}
+
+.chat_msg_sent_ind{
+    right: -16px;
+    border-radius: 0 0 0 8px;
+    box-shadow: -8px 0 #3d4d42;
+   
+}
 
 .chat_msg_recieved {
     align-self: flex-start;
@@ -70,21 +75,29 @@
 
 }
 
-.chat_box_send_img {
+.chat_box_actions{
     display: flex;
     align-items: center;
+    justify-content: space-around;
     gap: 1rem;
-
 }
 
-.chat_box_send_img input {
+/* Icons */
+.chat_box_actions ion-icon{
+    font-size: 48px;
+    color: var(--secondary-color);
+}
+
+.chat_box_actions input {
     width: 100%;
     background-color: #f182035b;
     outline: none;
     border: none;
-    padding: 1rem;
+    padding: .5rem;
+    font-size: 1.125rem;
     color: var(--primary-color);
     border-radius: .5rem;
+
 }
 
 .chat_user_info {
@@ -95,10 +108,6 @@
 
 }
 
-.chat_user_info_box h3,
-.chat_user_info_box p {
-    line-height: 0;
-}
 
 @media only screen and (max-width: 35em) {
     .chat {

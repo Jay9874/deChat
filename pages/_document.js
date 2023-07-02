@@ -3,7 +3,7 @@ export default function Document () {
   return (
     <Html lang='en'>
       <Head>
-      <title>deChat</title>
+        <title>deChat</title>
         <meta
           name='description'
           content='A new world of being social with decentralised, secured messages.'

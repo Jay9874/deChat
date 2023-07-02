@@ -22,9 +22,7 @@ export default function Model ({
   const [accountAddress, setAccountAddress] = useState('')
   const { loading, setError } = useContext(ChatAppContext)
   function handleAddressInput (e) {
-    console.log(e.target)
     setAccountAddress(e.target.value)
-    console.log(accountAddress)
   }
   return (
     <div className={Style.model}>
@@ -72,7 +70,10 @@ export default function Model ({
                 />
               </div>
               <div className={Style.model_box_right_name_btn}>
-                <button type='submit' onClick={() => functionName(name, accountAddress)}>
+                <button
+                  type='submit'
+                  onClick={() => functionName(name, accountAddress)}
+                >
                   <Image src={images.send} alt='send' height={30} width={30} />
                   Submit
                 </button>
