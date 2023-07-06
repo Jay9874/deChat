@@ -6,8 +6,8 @@
 .alluser{
     width: 80%;
     margin: 2rem auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 3rem;
 }
 
@@ -19,6 +19,6 @@
     }
     .alluser{
         width: 90%;
-        grid-template-columns: 1fr;
+        justify-content: center;
     }
 }

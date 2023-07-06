@@ -1,8 +1,9 @@
-.navBar_box_right_menu_link{
+.navBar_box_right_menu_link {
     text-decoration: none;
     color: #fff;
 
 }
+
 .navBar {
     width: 80%;
     margin: 3rem auto;
@@ -20,7 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    gap: 1rem;
 }
 
 .navBar_box_right_menu {
@@ -31,15 +32,11 @@
     transition: all .3s ease-in-out;
 }
 
-.navBar_box_right_menu_items .mobile_menu_items.active {
-    color: #f18303;
-    border-bottom: 2px solid #f18303;
-    padding-bottom: .4rem;
-}
-
 .navBar_box_right_connect {
-    display: flex;
-    justify-self: flex-end;
+    flex-basis: 0 0 auto;
+}
+.navBar_box_right_connect img {
+    display: inline;
 }
 
 .navBar_box_right_connect button {
@@ -51,9 +48,6 @@
     color: #f18303;
     font-weight: 600;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
 }
 
 .navBar_box_right_close {
@@ -75,7 +69,8 @@
     background-color: var(--primary-background);
     z-index: 111111;
 }
-.mobile_menu_link{
+
+.mobile_menu_link {
     text-decoration: none;
     margin: 2rem 0;
     color: #fff;

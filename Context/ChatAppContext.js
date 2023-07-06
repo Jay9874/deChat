@@ -136,7 +136,7 @@ export const ChatAppProvider = ({ children }) => {
   //Send message
   const sendMessage = async (friendAddress, message) => {
     try {
-      // if (!friendAddress || !message) return setError('Cant send empty message')
+      if (!friendAddress || !message) return setError('Cant send empty message')
       //Get contract
       const contract = await connectingWithContract()
       //Send message

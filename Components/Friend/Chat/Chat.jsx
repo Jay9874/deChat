@@ -37,9 +37,9 @@ const Chat = ({
 
   // Functions
   const handleSend = e => {
-    if (!message) return alert('Please type a message')
-    e.preventDefault()
-    sendMessage(message, chatData.pubkey)
+    // e.preventDefault()
+    console.log(message, chatData.pubkey)
+    sendMessage(chatData.pubkey, message)
     setMessage('')
   }
 

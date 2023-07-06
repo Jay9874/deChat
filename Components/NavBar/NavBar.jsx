@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 
 //Internal imports
 import Style from './NavBar.module.css'
@@ -9,13 +8,13 @@ import { Model, Error } from '..'
 import images from '../../assets'
 
 export default function NavBar () {
-  const [menuItems, setMenuItems] = useState([
+  const menuItems = [
     { name: 'Users', link: '/allusers' },
     { name: 'Chat', link: '/' },
     { name: 'Contacts', link: '/contacts' },
     { name: 'Profile', link: '/profile' }
-  ])
-  const [activeLink, setActiveLink] = useState(2)
+  ]
+  const [activeLink, setActiveLink] = useState(1)
   const [showModel, setShowModel] = useState(false)
   const [open, setOpen] = useState(false)
   const { account, username, connectWallet, createAccount, error } =
@@ -37,12 +36,11 @@ export default function NavBar () {
           <div className={Style.navBar_box_right_menu}>
             {menuItems.map((item, index) => (
               <div
-                className={`${Style.navBar_box_right_menu_items} ${
-                  activeLink === index ? 'active' : ''
-                }`}
+                
                 key={index}
                 onClick={() => setActiveLink(index)}
               >
+               
                 <a
                   href={item.link}
                   className={Style.navBar_box_right_menu_link}
@@ -83,12 +81,15 @@ export default function NavBar () {
               <button onClick={() => connectWallet()}>Connect Wallet</button>
             ) : (
               <button onClick={() => setShowModel(true)}>
-                <Image
-                  src={username ? images.accountName : images.create2}
-                  alt='user'
-                  height={20}
-                  width={20}
-                />{' '}
+                
+                  <Image
+                    src={username ? images.accountName : images.create2}
+                    alt='user'
+                    height={20}
+                    width={20}
+                
+                  />{' '}
+                
                 <p>{username || 'Create Account'}</p>
               </button>
             )}

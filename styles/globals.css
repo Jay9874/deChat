@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=Montserrat:wght@300;400;900&family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300&display=swap');
-:root{
-    --primary-background: #292F3F;
-    --secondary-background: rgb(0, 0, 0, 0.25);
-    --primary-color: #fff;
-    --secondary-color: #f18303;
-    --primary-icon-color: rgb(63, 63, 63);
+
+:root {
+  --primary-background: #292F3F;
+  --secondary-background: rgb(0, 0, 0, 0.25);
+  --primary-color: #fff;
+  --secondary-color: #f18303;
+  --primary-icon-color: rgb(63, 63, 63);
 }
+
 html,
 body {
   padding: 0;
@@ -19,8 +21,8 @@ body {
   color: var(--primary-color);
 }
 
-::-webkit-scrollbar{
-    display: none;
+::-webkit-scrollbar {
+  display: none;
 }
 
 * {
@@ -39,24 +41,31 @@ img {
   max-width: 100%;
   display: block;
 }
+
 button:disabled {
   cursor: not-allowed;
   pointer-events: all !important;
-  background: none;
   outline: none;
   border: none;
 }
-button:not(:disabled){
+
+button:not(:disabled) {
   cursor: pointer;
-  background: none;
   outline: none;
   border: none;
 }
-p{
+
+p {
   margin: 0;
   padding: 0;
 }
-h1, h2, h3, h4, h5, h6{
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
   line-height: 1;
