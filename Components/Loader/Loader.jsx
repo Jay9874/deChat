@@ -8,7 +8,7 @@ export default function Loader() {
   return (
     <div className={Style.loader}>
       <div className={Style.loader_box}>
-      <Image src={images.loader} alt='loader' height={100} width={100} />
+      <Image src={images.loader} alt='loader' height={25} width={25} />
       </div>
     </div>
     

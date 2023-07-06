@@ -1,25 +1,30 @@
-.friend{
+.friend {
     width: 80%;
     margin: 1rem auto;
 }
-.friend_box{
-    display: grid;
-    grid-template-columns: 1.4fr 2fr;
+
+.friend_box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 2rem;
 }
 
-.friend_box_left{
+.friend_box_left {
+    flex-basis: 0 0 50%;
     background-color: var(--secondary-background);
     padding: 1rem;
     border-radius: .5rem;
 
 }
 
-@media only screen and (max-width: 35em){
-    .friend{
+@media only screen and (max-width: 35em) {
+    .friend {
         width: 90%;
     }
-    .friend_box{
-        grid-template-columns: 1fr;
+
+    .friend_box {
+        flex-direction: column;
+        align-items: center;
     }
 }

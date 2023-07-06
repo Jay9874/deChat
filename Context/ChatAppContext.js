@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect, useContext, use } from 'react'
-
 import { useRouter } from 'next/router'
 
 import {
@@ -54,6 +53,11 @@ export const ChatAppProvider = ({ children }) => {
     }
   }
   useEffect(() => {
+    const query = router.query
+    if(query.name){
+      setCurrentUsername(query.name)
+      setCurrentUserAddress(query.address)
+    }
     fetchData()
   }, [])
 
@@ -131,7 +135,6 @@ export const ChatAppProvider = ({ children }) => {
 
   //Send message
   const sendMessage = async (friendAddress, message) => {
-    console.log(friendAddress, message)
     try {
       // if (!friendAddress || !message) return setError('Cant send empty message')
       //Get contract
@@ -170,6 +173,8 @@ export const ChatAppProvider = ({ children }) => {
         checkIfWalletIsConnected,
         setError,
         userInfo,
+        setCurrentUserAddress,
+        setCurrentUsername,
         account,
         username,
         friendList,

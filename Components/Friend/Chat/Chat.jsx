@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext, use } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import Image from 'next/image'
 import Style from './Chat.module.css'
 import images from '../../../assets'
 import { useRouter } from 'next/router'
 import { convertTimestamp } from '../../../Utils/apiFeatures'
 import { Loader } from '../..'
-import { useSearchParams } from 'next/navigation'
+import { ChatAppContext } from '../../../Context/ChatAppContext'
 
 const Chat = ({
   sendMessage,
@@ -14,22 +14,35 @@ const Chat = ({
   currentUsername,
   currentUserAddress,
   loading,
-  readUser,
-  account,
   friendMsg
 }) => {
+  const { setCurrentUserAddress, setCurrentUsername } =
+    useContext(ChatAppContext)
   // useStates
   const [message, setMessage] = useState('')
   const [chatData, setChatData] = useState({
     name: '',
     pubkey: ''
   })
+  const chatBox = useRef(null)
   const router = useRouter()
-  const searchParams = useSearchParams()
+
   useEffect(() => {
-    if (!searchParams) return
     setChatData(router.query)
-  }, [searchParams])
+    var elem = chatBox.current
+    elem.scrollTop = elem.scrollHeight
+    setCurrentUserAddress(router.query.address)
+    setCurrentUsername(router.query.name)
+  }, [router.query])
+
+  // Functions
+  const handleSend = e => {
+    if (!message) return alert('Please type a message')
+    e.preventDefault()
+    sendMessage(message, chatData.pubkey)
+    setMessage('')
+  }
+
   return (
     <div className={Style.chat}>
       {currentUsername && currentUserAddress ? (
@@ -43,37 +56,37 @@ const Chat = ({
       ) : (
         <h4>Select a user to chat</h4>
       )}
-      <div className={Style.chat_box_box}>
-        <div className={Style.chat_msg_container}>
-          {friendMsg ? (
-            friendMsg.map((message, index) => {
-              return (
-                <div key={index} className={Style.chat_box}>
-                  {message.sender === chatData.pubkey ? (
-                    <div className={Style.chat_msg_recieved}>
-                      <p key={index}>{message.msg}</p>
-                      <small>Time: {convertTimestamp(message.timestamp)}</small>
-                      <div className={Style.chat_msg_recieved_ind}>
-                        <div></div>
-                      </div>
+
+      <div ref={chatBox} className={Style.chat_msg_container}>
+        {friendMsg ? (
+          friendMsg.map((message, index) => {
+            return (
+              <div key={index} className={Style.chat_box}>
+                {message.sender === chatData.pubkey ? (
+                  <div className={Style.chat_msg_recieved}>
+                    <p key={index}>{message.msg}</p>
+                    <small>Time: {convertTimestamp(message.timestamp)}</small>
+                    <div className={Style.chat_msg_recieved_ind}>
+                      <div></div>
                     </div>
-                  ) : (
-                    <div className={Style.chat_msg_sent}>
-                      <p key={index}>{message.msg}</p>
-                      <small>Time: {convertTimestamp(message.timestamp)}</small>
-                      <div className={Style.chat_msg_sent_ind}>
-                        <div></div>
-                      </div>
+                  </div>
+                ) : (
+                  <div className={Style.chat_msg_sent}>
+                    <p key={index}>{message.msg}</p>
+                    <small>Time: {convertTimestamp(message.timestamp)}</small>
+                    <div className={Style.chat_msg_sent_ind}>
+                      <div></div>
                     </div>
-                  )}
-                </div>
-              )
-            })
-          ) : (
-            <h4>No messages</h4>
-          )}
-        </div>
+                  </div>
+                )}
+              </div>
+            )
+          })
+        ) : (
+          <h4>No messages</h4>
+        )}
       </div>
+
       {/* chat box bottom menu */}
       {currentUserAddress && currentUsername && (
         <div className={Style.chat_box_send}>
@@ -90,7 +103,6 @@ const Chat = ({
               onChange={e => setMessage(e.target.value)}
             />
             <ion-icon
- 
               className={Style.chat_box_file_icon}
               name='attach-outline'
             ></ion-icon>
@@ -99,10 +111,7 @@ const Chat = ({
               <Loader />
             ) : (
               <ion-icon
-                onClick={() => {
-                  sendMessage(chatData.pubkey, message), setMessage('')
-                }}
-         
+                onClick={handleSend}
                 className={Style.chat_box_send_icon}
                 name='send-outline'
               ></ion-icon>
