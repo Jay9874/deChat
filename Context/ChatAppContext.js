@@ -14,7 +14,6 @@ export const ChatAppProvider = ({ children }) => {
   const [account, setAccount] = useState('')
   const [username, setUsername] = useState('')
   const [friendList, setFriendList] = useState([])
-  const [friendMsg, setFriendMsg] = useState([])
   const [loading, setLoading] = useState(false)
   const [userList, setUserList] = useState([])
   const [error, setError] = useState('')
@@ -54,7 +53,7 @@ export const ChatAppProvider = ({ children }) => {
   }
   useEffect(() => {
     const query = router.query
-    if(query.name){
+    if (query.name) {
       setCurrentUsername(query.name)
       setCurrentUserAddress(query.address)
     }
@@ -67,8 +66,8 @@ export const ChatAppProvider = ({ children }) => {
       //Get contract
       const contract = await connectingWithContract()
       //Get message
-      const friendMsg = await contract.readMessage(friendAddress)
-      setFriendMsg(friendMsg)
+      const fetchedMsg = await contract.readMessage(friendAddress)
+      return fetchedMsg
     } catch (err) {
       setError(`Please check your friend address ${err}`)
     }
@@ -178,7 +177,6 @@ export const ChatAppProvider = ({ children }) => {
         account,
         username,
         friendList,
-        friendMsg,
         loading,
         userList,
         error,

@@ -4,7 +4,7 @@ import Style from './Card.module.css'
 import images from '../../../assets'
 import Link from 'next/link'
 
-const Card = ({ friend, readMessage, index, userInfo }) => {
+const Card = ({ friend }) => {
   return (
     <Link
       href={{
@@ -13,10 +13,7 @@ const Card = ({ friend, readMessage, index, userInfo }) => {
       }}
       className={Style.chat_card_link}
     >
-      <div
-        className={Style.card}
-        onClick={() => (readMessage(friend.pubkey), userInfo(friend.pubkey))}
-      >
+      <div className={Style.card}>
         <div className={Style.card_box}>
           <div className={Style.card_box_left}>
             <Image
@@ -30,7 +27,6 @@ const Card = ({ friend, readMessage, index, userInfo }) => {
           <div className={Style.card_box_right}>
             <h3>{friend.name}</h3>
             <p>{friend.pubkey.slice(0, 25)}...</p>
-
             <div className={Style.card_box_right_end}></div>
           </div>
         </div>

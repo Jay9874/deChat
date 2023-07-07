@@ -13,13 +13,16 @@
 }
 
 .chat_msg_container {
-    position: absolute;
     padding: 5rem 0;
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
+    overflow: scroll;
 }
 
+.chat_msg_scroller {
+    height: 100%;
+    overflow: scroll;
+}
 
 .chat_user_info {
     display: flex;
@@ -142,10 +145,12 @@
     .chat {
         width: 100%;
     }
+
     .chat p,
     .chat small {
         font-size: .8rem;
     }
+
     .show {
         display: none;
     }

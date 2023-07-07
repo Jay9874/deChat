@@ -7,88 +7,101 @@ import { convertTimestamp } from '../../../Utils/apiFeatures'
 import { Loader } from '../..'
 import { ChatAppContext } from '../../../Context/ChatAppContext'
 
-const Chat = ({
-  sendMessage,
-  readMessage,
-  username,
-  currentUsername,
-  currentUserAddress,
-  loading,
-  friendMsg
-}) => {
-  const { setCurrentUserAddress, setCurrentUsername } =
-    useContext(ChatAppContext)
+const Chat = ({ sendMessage, loading }) => {
+  const { setError, readMessage } = useContext(ChatAppContext)
   // useStates
   const [message, setMessage] = useState('')
-  const [chatData, setChatData] = useState({
+  const [friendMsg, setFriendMsg] = useState([])
+  const [loadingData, setLoadingData] = useState(true)
+  const [recipient, setRecipient] = useState({
     name: '',
     pubkey: ''
   })
-  const chatBox = useRef(null)
+
+  const messageListRef = useRef(null)
   const router = useRouter()
 
   useEffect(() => {
-    setChatData(router.query)
-    var elem = chatBox.current
-    elem.scrollTop = elem.scrollHeight
-    setCurrentUserAddress(router.query.address)
-    setCurrentUsername(router.query.name)
+    setRecipient({ name: router.query.name, pubkey: router.query.pubkey })
+    fetchMessages()
+    scrollToBottom()
   }, [router.query])
 
   // Functions
-  const handleSend = e => {
-    // e.preventDefault()
-    console.log(message, chatData.pubkey)
-    sendMessage(chatData.pubkey, message)
-    setMessage('')
+  const handleSend = async e => {
+    try {
+      e.preventDefault()
+      await sendMessage(recipient.pubkey, message)
+      setMessage('')
+    } catch (err) {
+      setError(`Error: ${err}`)
+    }
+  }
+
+  const fetchMessages = async () => {
+    try {
+      const fetchedMsg = await readMessage(router.query.pubkey)
+      setFriendMsg(fetchedMsg)
+      await scrollToBottom()
+      setLoadingData(false)
+    } catch (err) {
+      setError(`Error: ${err}`)
+    }
+  }
+
+  const scrollToBottom = async() => {
+    const scrollHeight = messageListRef.current.scrollHeight
+    console.log(scrollHeight)
+    const height = messageListRef.current.clientHeight
+    console.log(height)
+    const maxScrollTop = scrollHeight - height
+    messageListRef.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0
   }
 
   return (
     <div className={Style.chat}>
-      {currentUsername && currentUserAddress ? (
+      {recipient ? (
         <div className={Style.chat_user_info}>
           <Image src={images.accountName} alt='user' height={70} width={70} />
           <div className={Style.chat_user_info_box}>
-            <h3>{currentUsername}</h3>
-            <p className={Style.show}>{currentUserAddress.slice(0, 25)}...</p>
+            <h3>{recipient.name}</h3>
+            <p className={Style.show}>{recipient.pubkey.slice(0, 25)}...</p>
           </div>
         </div>
       ) : (
         <h4>Select a user to chat</h4>
       )}
 
-      <div ref={chatBox} className={Style.chat_msg_container}>
-        {friendMsg ? (
-          friendMsg.map((message, index) => {
-            return (
-              <div key={index} className={Style.chat_box}>
-                {message.sender === chatData.pubkey ? (
-                  <div className={Style.chat_msg_recieved}>
-                    <p key={index}>{message.msg}</p>
-                    <small>Time: {convertTimestamp(message.timestamp)}</small>
-                    <div className={Style.chat_msg_recieved_ind}>
-                      <div></div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={Style.chat_msg_sent}>
-                    <p key={index}>{message.msg}</p>
-                    <small>Time: {convertTimestamp(message.timestamp)}</small>
-                    <div className={Style.chat_msg_sent_ind}>
-                      <div></div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )
-          })
+      <div ref={messageListRef} className={Style.chat_msg_container}>
+        {loadingData ? (
+          <h4>Getting messages...</h4>
         ) : (
-          <h4>No messages</h4>
+          friendMsg.map((message, index) => (
+            <div key={index} className={Style.chat_box}>
+              {message.sender === recipient.pubkey ? (
+                <div className={Style.chat_msg_recieved}>
+                  <p>{message.msg}</p>
+                  <small>Time: {convertTimestamp(message.timestamp)}</small>
+                  <div className={Style.chat_msg_recieved_ind}>
+                    <div></div>
+                  </div>
+                </div>
+              ) : (
+                <div className={Style.chat_msg_sent}>
+                  <p key={index}>{message.msg}</p>
+                  <small>Time: {convertTimestamp(message.timestamp)}</small>
+                  <div className={Style.chat_msg_sent_ind}>
+                    <div></div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))
         )}
       </div>
 
       {/* chat box bottom menu */}
-      {currentUserAddress && currentUsername && (
+      {recipient && (
         <div className={Style.chat_box_send}>
           <div className={Style.chat_box_actions}>
             <ion-icon
